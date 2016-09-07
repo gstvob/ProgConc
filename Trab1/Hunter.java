@@ -3,9 +3,10 @@ package pkg;
 public class Hunter extends Thread{
 
 	private int totalCoins;
+	private char color;
+	
 	private Forest bosque;
 	private Dog[] dogs;
-	private char color;
 	
 	public Hunter(char _color, Forest _bosque) {
 		bosque = _bosque;
@@ -13,6 +14,8 @@ public class Hunter extends Thread{
 		color = _color;
 		dogs = new Dog[2];
 	}
+	
+	//Operações relacionadas a cor do caçador.
 	public char getColor () {
 		return color;
 	}
@@ -28,16 +31,17 @@ public class Hunter extends Thread{
 				return null;
 		}
 	}
+	//Metodo para setar os cachorros que esse caçador possui
 	public void setDogs(Dog _dog1, Dog _dog2) {
 		dogs[0] = _dog1;
 		dogs[1] = _dog2;
 	}
-	public void addCoins(int value) {
-		totalCoins += value;
-	}
+	//Método para retornar quantas moedas esse caçador tem.
 	public int getTotalCoin() {
 		return totalCoins;
 	}
+	
+	//Método run para executar um cachorro, depois o outro, depois o um até o dono ter 50 moedas
 	public void run() {
 		dogs[0].run();
 		if (dogs[0].isAlive() == false) {
@@ -52,6 +56,6 @@ public class Hunter extends Thread{
 		}
 		totalCoins += dogs[0].getCoins();
 		dogs[0].setCoins(0);
-		bosque.setWinnerOrder(this);
+		bosque.setWinner(this);
 	}
 }

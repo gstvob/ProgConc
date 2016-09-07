@@ -7,7 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-	static final int timeUnit = 100;
+	static final int timeUnit = 100;/*<!Constante que indica a quantidade do tempo = 100milisegundos.>*/
+	
 	/*!
 	 * @brief método main que inicializa os caçadores, cachorros e o bosque.
 	 */
@@ -44,12 +45,40 @@ public class Main {
 		exec.execute(cacador2);
 		exec.execute(cacador3);
 
-		while (cacador1.getTotalCoin() < 50 || cacador2.getTotalCoin() < 50 || cacador3.getTotalCoin() < 50) {
+		while (cacador1.getTotalCoin() < 50 && cacador2.getTotalCoin() < 50 && cacador3.getTotalCoin() < 50) {
 			schedExec.schedule(redDog, timeUnit * 2, TimeUnit.MILLISECONDS);
 		}
 		exec.shutdownNow();
+		exec.shutdownNow();
+		exec.shutdownNow();
 		schedExec.shutdownNow();
-		bosque.PrintOutWinner();
+		
+		bosque.PrintWinner();
+		if (bosque.getWinner() == cacador1) {
+			if (cacador2.getTotalCoin() >= cacador3.getTotalCoin()) {
+				System.out.println("SEGUNDO LUGAR: " +cacador2.getStringColor()+ ", Moedas: "+cacador2.getTotalCoin());
+				System.out.println("TERCEIRO LUGAR: " +cacador3.getStringColor()+ ", Moedas: "+cacador3.getTotalCoin());
+			} else {
+				System.out.println("SEGUNDO LUGAR: " +cacador3.getStringColor()+ ", Moedas: "+cacador3.getTotalCoin());
+				System.out.println("TERCEIRO LUGAR: " +cacador2.getStringColor()+ ", Moedas: "+cacador2.getTotalCoin());
+			}
+		} else if (bosque.getWinner() == cacador2) {
+			if (cacador1.getTotalCoin() >= cacador3.getTotalCoin()) {
+				System.out.println("SEGUNDO LUGAR: " +cacador1.getStringColor()+ ", Moedas: "+cacador1.getTotalCoin());
+				System.out.println("TERCEIRO LUGAR: " +cacador3.getStringColor()+ ", Moedas: "+cacador3.getTotalCoin());
+			} else {
+				System.out.println("SEGUNDO LUGAR: " +cacador3.getStringColor()+ ", Moedas: "+cacador3.getTotalCoin());
+				System.out.println("TERCEIRO LUGAR: " +cacador1.getStringColor()+ ", Moedas: "+cacador1.getTotalCoin());
+			}
+		} else {
+			if (cacador1.getTotalCoin() >= cacador2.getTotalCoin()) {
+				System.out.println("SEGUNDO LUGAR: " +cacador1.getStringColor()+ ", Moedas: "+cacador1.getTotalCoin());
+				System.out.println("TERCEIRO LUGAR: " +cacador2.getStringColor()+ ", Moedas: "+cacador2.getTotalCoin());
+			} else {
+				System.out.println("SEGUNDO LUGAR: " +cacador2.getStringColor()+ ", Moedas: "+cacador2.getTotalCoin());
+				System.out.println("TERCEIRO LUGAR: " +cacador1.getStringColor()+ ", Moedas: "+cacador1.getTotalCoin());
+			}
+		}
 		System.exit(0);
 	}
 }

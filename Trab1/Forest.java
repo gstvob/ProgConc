@@ -5,10 +5,25 @@ import java.util.ArrayList;
 public class Forest {
 
 	private ArrayList<Pot> pots = new ArrayList<Pot>();
-	private ArrayList<Hunter> winnerOrder = new ArrayList<Hunter>();
+	private Hunter winner;
+
 	public Forest() {
 		StartPots();
 	}
+	//!método para retornar a posição de um pote passado como parametro.
+	public int PotAt(Pot pot) {
+		return pots.lastIndexOf(pot);
+	}
+	//!método para retornar um pote de uma determinada posição do arraylist de potes.
+	public Pot getPot(int _index) {
+		return pots.get(_index);
+	}
+
+	//!método para adicionar uma moeda a um determinado pote do arraylist de potes.
+	public void AddCoin(int index) {
+		pots.get(index).setCoins(pots.get(index).getCoins() + 1);
+	}
+	//!método para pegar a moeda em um determinado pote se tiver moedas nele.
 	public int CatchCoins(Pot pote) {
 		if (pote.getCoins() <= 0) {
 			return 0;
@@ -20,25 +35,22 @@ public class Forest {
 			return 3;
 		}
 	}
-	public void AddCoin(int index) {
-		pots.get(index).setCoins(pots.get(index).getCoins()+1);
+	//!método para setar o caçador vencedor.
+	public void setWinner(Hunter _hunter) {
+		winner = _hunter;
 	}
-	public int PotAt(Pot pot) {
-		return pots.lastIndexOf(pot);
+	//!Método para retornar o caçador vencedor.
+	public Hunter getWinner() {
+		return winner;
 	}
-	public void setWinnerOrder(Hunter _hunter) {
-		winnerOrder.add(_hunter);
+	//!método para printar o caçador vencedor.
+	public void PrintWinner() {
+		System.out.println("-- -- -- -- -- -- VENCEDOR -- -- -- -- -- -- ");
+		System.out.println("Cachorros e Caçador da cor: " +winner.getStringColor()+ ", Moedas: " +winner.getTotalCoin());
 	}
-	public void PrintOutWinner() {
-		System.out.println("PRIMEIRO LUGAR : Caçador e cachorros " +winnerOrder.get(0).getStringColor());
-		System.out.println("SEGUNDO LUGAR : Caçador e cachorros " +winnerOrder.get(1).getStringColor());
-		System.out.println("TERCEIRO LUGAR : Caçador e cachorros " +winnerOrder.get(2).getStringColor());
-	}
-	public Pot getPot(int _index) {
-		return pots.get(_index);
-	}
+	//!método para ajustar os possiveis caminhos que um cachorro pode tomar.
 	public void StartPots() {
-		for(int i = 0; i < 20; i++) {
+		for (int i = 0; i < 20; i++) {
 			Pot aux = new Pot();
 			pots.add(aux);
 		}

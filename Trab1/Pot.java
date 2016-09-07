@@ -11,38 +11,30 @@ public class Pot {
 	public Pot() {
 		coins = 4;
 	}
+	
+	//Operações relacionada com as moedas do pote.
 	public int getCoins() {
 		return coins;
 	}
 	public void setCoins(int value) {
 		coins = value;
 	}
-	public void setPossiblePaths(Pot e) {
-		possiblePaths.add(e);
-	}
-	public int CatchCoin() {
-		if (coins <= 0) {
-			return 0;
-		} else if (coins == 1){
-			coins -= 1;
-			return 1;
-		} else {
-			coins -= 3;
-			return 3;
-		}
-	}
+	
+	//Operações relacionadas com o pote em si.
 	public boolean IsBeingUsed() {
 		return isBeingUsed;
 	}
 	public void setUsed(boolean _value) {
 		isBeingUsed = _value;
 	}
+	public void setPossiblePaths(Pot e) {
+		possiblePaths.add(e);
+	}
 	public Pot randomPot() {
 		return possiblePaths.get((int) (Math.random()*possiblePaths.size()));
 	}
-	public boolean isEmpty() {
-		return sleepingDogs.isEmpty();
-	}
+	
+	//Operações relacionadas com os cachorros que estão dormindo no pote.
 	public void AddSleepingDog(Dog e) {
 		sleepingDogs.add(e);
 	}
@@ -54,5 +46,8 @@ public class Pot {
 	}
 	public Dog getSleepingDogAt(int _index) {
 		return sleepingDogs.get(_index);
+	}
+	public boolean isEmpty() {
+		return sleepingDogs.isEmpty();
 	}
 }
