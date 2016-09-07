@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Forest {
 
 	private ArrayList<Pot> pots = new ArrayList<Pot>();
-
+	private ArrayList<Hunter> winnerOrder = new ArrayList<Hunter>();
 	public Forest() {
 		StartPots();
 	}
@@ -25,6 +25,14 @@ public class Forest {
 	}
 	public int PotAt(Pot pot) {
 		return pots.lastIndexOf(pot);
+	}
+	public void setWinnerOrder(Hunter _hunter) {
+		winnerOrder.add(_hunter);
+	}
+	public void PrintOutWinner() {
+		System.out.println("PRIMEIRO LUGAR : Caçador e cachorros " +winnerOrder.get(0).getStringColor());
+		System.out.println("SEGUNDO LUGAR : Caçador e cachorros " +winnerOrder.get(1).getStringColor());
+		System.out.println("TERCEIRO LUGAR : Caçador e cachorros " +winnerOrder.get(2).getStringColor());
 	}
 	public Pot getPot(int _index) {
 		return pots.get(_index);

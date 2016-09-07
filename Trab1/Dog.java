@@ -4,21 +4,18 @@ public class Dog extends Thread {
 
 	private int coins;
 	private char color;
-
+	private Coordinator coordenador = new Coordinator();
 	private String stringColor;
 	private Hunter dono;
 	private Pot currentPot;
 	private Forest bosque;
 
-	public Dog(char _cor) {
-		color = _cor;
-		stringColor = "vermelho";
-	}
-
-	public Dog(Hunter _dono) {
+	public Dog(Hunter _dono, Forest _bosque) {
 		coins = 0;
 		dono = _dono;
 		color = dono.getColor();
+		bosque = _bosque;
+		currentPot = bosque.getPot(0);
 		switch (color) {
 		case 'y':
 			stringColor = "amarelo";
@@ -33,37 +30,41 @@ public class Dog extends Thread {
 			break;
 		}
 	}
-	
-	@Override
+
 	public void run() {
-		currentPot = bosque.getPot(0);
 		while (coins < 20) {
+			currentPot.setUsed(true);
 			if (currentPot.getCoins() == 0) {
 				try {
 					System.out.println("Cachorro " + stringColor + " dormiu no pote " + bosque.PotAt(currentPot));
 					currentPot.AddSleepingDog(this);
 					sleep(Main.timeUnit * 60);
 				} catch (InterruptedException e1) {
-					System.out.println("INTERROMPEU");
 					if (currentPot.getCoins() == 0) {
 						try {
+							System.out.println("Dormiu denovo porque tinha outro dormindo aqui");
 							sleep(Main.timeUnit * 3);
 						} catch (InterruptedException e) {
 						}
-					} else {
-						coins += bosque.CatchCoins(currentPot);
 					}
 				}
-				System.out.println("Cachorro " + stringColor + " acordou");
-				currentPot = currentPot.randomPot();
+				coins += bosque.CatchCoins(currentPot);
+				currentPot.WakeDog(this);
+				System.out.println("Cachorro " + stringColor + " acordou e pegou a moeda no pote "
+						+ bosque.PotAt(currentPot) + " total moedas: " + coins);
+				currentPot.setUsed(false);
+				currentPot = coordenador.ReleaseResource(currentPot.randomPot(), this);
+				currentPot.setUsed(true);
 			}
 			coins += bosque.CatchCoins(currentPot);
 			try {
-				System.out.println("Cachorro " + stringColor + " pegou moeda do pote " + bosque.PotAt(currentPot)+ ", Total de moedas: "+coins);
+				System.out.println("Cachorro " + stringColor + " pegou moeda do pote " + bosque.PotAt(currentPot)
+						+ ", Total de moedas: " + coins);
 				sleep(Main.timeUnit);
 			} catch (InterruptedException e) {
 			}
-			currentPot = currentPot.randomPot();
+			currentPot.setUsed(false);
+			currentPot = coordenador.ReleaseResource(currentPot.randomPot(), this);
 		}
 	}
 
@@ -74,10 +75,15 @@ public class Dog extends Thread {
 	public int getCoins() {
 		return coins;
 	}
-	public void setBosque(Forest _bosque) {
-		bosque = _bosque;
-	}
 
+	public String getColor() {
+		return stringColor;
+	}
+	public void Sleep(int value) {
+		try {
+			sleep(value);
+		} catch (InterruptedException e) {}
+	}
 	public void setColor(char _color) {
 		color = _color;
 	}
