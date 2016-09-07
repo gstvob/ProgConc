@@ -9,6 +9,20 @@ public class Forest {
 	public Forest() {
 		StartPots();
 	}
+	public int CatchCoins(Pot pote) {
+		if (pote.getCoins() <= 0) {
+			return 0;
+		} else if (pote.getCoins() == 1) {
+			pote.setCoins(pote.getCoins() - 1);
+			return 1;
+		} else {
+			pote.setCoins(pote.getCoins() - 3);
+			return 3;
+		}
+	}
+	public void AddCoin(int index) {
+		pots.get(index).setCoins(1);
+	}
 	public int PotAt(Pot pot) {
 		return pots.lastIndexOf(pot);
 	}

@@ -1,6 +1,6 @@
 package pkg;
 
-public class Hunter {
+public class Hunter{
 
 	private int totalCoins;
 	private Dog[] dogs;
@@ -14,10 +14,9 @@ public class Hunter {
 	public char getColor() {
 		return color;
 	}
-	public void paintDogs() {
-		for(int i = 0; i < dogs.length; i++) {
-			dogs[i].setColor(color);
-		}
+	public void setDogs(Dog _dog1, Dog _dog2) {
+		dogs[0] = _dog1;
+		dogs[1] = _dog2;
 	}
 	public void addCoins(int value) {
 		totalCoins += value;
