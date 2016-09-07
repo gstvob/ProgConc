@@ -14,7 +14,7 @@ public class RedDog extends Thread {
 		for (int i = 0; i < 20; i++) {
 			if (bosque.getPot(i).getCoins() == 0 && bosque.getPot(i).isEmpty() == false) {
 				bosque.AddCoin(i);
-				System.out.println("Tem " +bosque.getPot(i).SleepingDogAmmount()+ " cachorros dormindo aqui");
+				System.out.println("Tem " +bosque.getPot(i).SleepingDogAmmount()+ " cachorro(s) dormindo aqui");
 				
 				for (int j = 0; j < bosque.getPot(i).SleepingDogAmmount(); j++) {
 					System.out.println(

@@ -38,6 +38,7 @@ public class Dog extends Thread {
 				try {
 					System.out.println("Cachorro " + stringColor + " dormiu no pote " + bosque.PotAt(currentPot));
 					currentPot.AddSleepingDog(this);
+					currentPot.setUsed(false);
 					sleep(Main.timeUnit * 60);
 				} catch (InterruptedException e1) {
 					if (currentPot.getCoins() == 0) {
@@ -50,21 +51,23 @@ public class Dog extends Thread {
 				}
 				coins += bosque.CatchCoins(currentPot);
 				currentPot.WakeDog(this);
-				System.out.println("Cachorro " + stringColor + " acordou e pegou a moeda no pote "
-						+ bosque.PotAt(currentPot) + " total moedas: " + coins);
+				try {
+					System.out.println("Cachorro " + stringColor + " acordou e pegou a moeda no pote "
+							+ bosque.PotAt(currentPot) + " total moedas: " + coins);
+					sleep(Main.timeUnit);
+				} catch (InterruptedException e) {}
+				currentPot = coordenador.ReleaseResource(currentPot.randomPot(), this);
+			} else {
+				coins += bosque.CatchCoins(currentPot);
+				try {
+					System.out.println("Cachorro " + stringColor + " pegou moeda do pote " + bosque.PotAt(currentPot)
+							+ ", Total de moedas: " + coins);
+					sleep(Main.timeUnit);
+				} catch (InterruptedException e) {
+				}
 				currentPot.setUsed(false);
 				currentPot = coordenador.ReleaseResource(currentPot.randomPot(), this);
-				currentPot.setUsed(true);
 			}
-			coins += bosque.CatchCoins(currentPot);
-			try {
-				System.out.println("Cachorro " + stringColor + " pegou moeda do pote " + bosque.PotAt(currentPot)
-						+ ", Total de moedas: " + coins);
-				sleep(Main.timeUnit);
-			} catch (InterruptedException e) {
-			}
-			currentPot.setUsed(false);
-			currentPot = coordenador.ReleaseResource(currentPot.randomPot(), this);
 		}
 	}
 
@@ -79,11 +82,14 @@ public class Dog extends Thread {
 	public String getColor() {
 		return stringColor;
 	}
+
 	public void Sleep(int value) {
 		try {
 			sleep(value);
-		} catch (InterruptedException e) {}
+		} catch (InterruptedException e) {
+		}
 	}
+
 	public void setColor(char _color) {
 		color = _color;
 	}

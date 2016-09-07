@@ -21,7 +21,7 @@ public class Forest {
 		}
 	}
 	public void AddCoin(int index) {
-		pots.get(index).setCoins(1);
+		pots.get(index).setCoins(pots.get(index).getCoins()+1);
 	}
 	public int PotAt(Pot pot) {
 		return pots.lastIndexOf(pot);

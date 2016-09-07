@@ -48,6 +48,7 @@ public class Main {
 			schedExec.schedule(redDog, timeUnit * 2, TimeUnit.MILLISECONDS);
 		}
 		exec.shutdownNow();
+		schedExec.shutdownNow();
 		bosque.PrintOutWinner();
 		System.exit(0);
 	}
