@@ -67,12 +67,6 @@ public class Dog extends Thread {
 					currentPot.setUsed(false);
 					sleep(Main.timeUnit * 60);
 				} catch (InterruptedException e1) {
-					if (currentPot.getCoins() == 0) {
-						try {
-							System.out.println("Dormiu denovo porque tinha outro dormindo aqui");
-							sleep(Main.timeUnit * 3);
-						} catch (InterruptedException e) {}
-					}
 					coins += bosque.CatchCoins(currentPot);
 					System.out.println("Cachorro " + stringColor + " acordou e pegou a moeda no pote "
 							+ bosque.PotAt(currentPot) + " total moedas: " + coins);

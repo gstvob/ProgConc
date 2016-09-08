@@ -48,9 +48,6 @@ public class Main {
 		while (cacador1.getTotalCoin() < 50 && cacador2.getTotalCoin() < 50 && cacador3.getTotalCoin() < 50) {
 			schedExec.schedule(redDog, timeUnit * 2, TimeUnit.MILLISECONDS);
 		}
-		exec.shutdownNow();
-		exec.shutdownNow();
-		exec.shutdownNow();
 		schedExec.shutdownNow();
 		
 		bosque.PrintWinner();
