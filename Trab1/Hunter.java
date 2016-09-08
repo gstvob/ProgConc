@@ -52,6 +52,7 @@ public class Hunter extends Thread{
 		if (dogs[1].isAlive() == false) {
 			totalCoins += dogs[1].getCoins();
 			dogs[1].setCoins(0);
+			dogs[0].setThreshold(10);
 			dogs[0].run();
 		}
 		totalCoins += dogs[0].getCoins();

@@ -3,6 +3,7 @@ package pkg;
 public class Dog extends Thread {
 
 	private int coins;
+	private int threshold = 20;
 	private char color;
 
 	private Coordinator coordenador = new Coordinator();
@@ -32,6 +33,9 @@ public class Dog extends Thread {
 		}
 	}
 
+	public void setThreshold(int value) {
+		threshold = value;
+	}
 	public int getCoins() {
 		return coins;
 	}
@@ -52,7 +56,7 @@ public class Dog extends Thread {
 	}
 
 	public void run() {
-		while (coins < 20) {
+		while (coins < threshold) {
 			currentPot.setUsed(true);
 
 			if (currentPot.getCoins() == 0) {
